@@ -1,13 +1,21 @@
 <script setup>
 import { computed } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
+import { useBebidasStore } from '../stores/bebidas';
+import { storeToRefs } from 'pinia';
 
 const route = useRoute();
+const store = useBebidasStore();
+const { categorias, busqueda } = storeToRefs(store);
+
 const paginaInicio = computed(() => route.name === 'inicio');
+const handleSubmit = () => {
+  store.obtenerRecetas();
+};
 </script>
 
 <template>
-  <header class="bg-slate-800" :class="{header:paginaInicio}">
+  <header class="bg-slate-800" :class="{ header: paginaInicio }">
     <div class="mx-auto container px-5 py-16">
       <div class="flex justify-between items-center">
         <div>
@@ -35,7 +43,8 @@ const paginaInicio = computed(() => route.name === 'inicio');
 
       <form
         v-if="paginaInicio"
-        class="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6">
+        class="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6"
+        @submit.prevent="handleSubmit">
         <div class="space-y">
           <label
             class="block text-white uppercase font-extrabold text-lg"
@@ -46,7 +55,8 @@ const paginaInicio = computed(() => route.name === 'inicio');
             id="ingrediente"
             type="text"
             class="p-3 w-full rounded-lg focus:outline-none"
-            placeholder="Nombre o Ingredientes: ej. Vodka, Tequila, etc" />
+            placeholder="Nombre o Ingredientes: ej. Vodka, Tequila, etc"
+            v-model="busqueda.nombre" />
         </div>
 
         <div class="space-y">
@@ -57,8 +67,15 @@ const paginaInicio = computed(() => route.name === 'inicio');
           </label>
           <select
             id="categoria"
-            class="p-3 w-full rounded-lg focus:outline-none">
+            class="p-3 w-full rounded-lg focus:outline-none"
+            v-model="busqueda.categoria">
             <option value="">-- Selecciona --</option>
+            <option
+              v-for="categoria in categorias"
+              :value="categoria.strGlass"
+              :key="categoria.strGlass">
+              {{ categoria.strGlass }}
+            </option>
           </select>
         </div>
 
