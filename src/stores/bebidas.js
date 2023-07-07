@@ -8,6 +8,7 @@ export const useBebidasStore = defineStore('bebidas', () => {
     nombre: '',
     categoria: '',
   });
+  const recetas = ref([]);
 
   onMounted(async () => {
     const {
@@ -20,11 +21,13 @@ export const useBebidasStore = defineStore('bebidas', () => {
     const {
       data: { drinks },
     } = await APIService.buscarRecetas(busqueda);
+    recetas.value = drinks;
   }
 
   return {
     categorias,
     busqueda,
     obtenerRecetas,
+    recetas,
   };
 });
