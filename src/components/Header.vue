@@ -72,9 +72,9 @@ const handleSubmit = () => {
             <option value="">-- Selecciona --</option>
             <option
               v-for="categoria in categorias"
-              :value="categoria.strGlass"
-              :key="categoria.strGlass">
-              {{ categoria.strGlass }}
+              :value="categoria.strCategory"
+              :key="categoria.strCategory">
+              {{ categoria.strCategory }}
             </option>
           </select>
         </div>
