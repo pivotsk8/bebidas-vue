@@ -8,10 +8,12 @@ import {
 } from '@headlessui/vue';
 import { useModalStore } from '../stores/modal';
 import { useBebidasStore } from '../stores/bebidas';
+import { useFavoritosStore } from '../stores/favoritos';
 import { storeToRefs } from 'pinia';
 
 const modalStore = useModalStore();
 const bebida = useBebidasStore();
+const favoritos = useFavoritosStore();
 const { modal } = storeToRefs(modalStore);
 const { receta } = storeToRefs(bebida);
 
@@ -99,6 +101,12 @@ const formatearIngredientes = () => {
                   class="w-full rounded bg-gray-600 p-3 font-bold uppercase text-white shadow hover:bg-gray-500"
                   @click="modalStore.handlerClickModal()">
                   cerrar
+                </button>
+                <button
+                  type="button"
+                  class="w-full rounded bg-orange-500 p-3 font-bold uppercase text-white shadow hover:bg-orange-600"
+                  @click="favoritos.handlerClickFavoritos(receta)">
+                  Agregar a Favoritos
                 </button>
               </div>
             </DialogPanel>
