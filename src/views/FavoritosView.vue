@@ -15,7 +15,7 @@ const { favoritos } = storeToRefs(favoritosStore);
   </p>
 
   <div
-    v-elsef
+    v-else
     class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 my-10 gap-10">
     <Receta
       v-for="receta in favoritos"
