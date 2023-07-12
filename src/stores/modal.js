@@ -13,7 +13,6 @@ export const useModalStore = defineStore('modal', () => {
   }
 
   const textoBoton = computed(() => {
-    console.log(bebidas.receta.idDrink);
     return favoritos.existeFavorito(bebidas.receta.idDrink)
       ? 'Eliminar de Favoritos'
       : 'Agregar a Favoritos';
